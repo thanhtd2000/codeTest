@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ticket extends Model
 {
@@ -19,6 +20,10 @@ class Ticket extends Model
     ];
     public function Order()
     {
-        return $this->hasMany(Order::class, 'order_cinema_id');
+        return $this->belongsTo(Order::class, 'order_cinema_id');
+    }
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class, 'schedule_id');
     }
 }

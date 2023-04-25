@@ -12,11 +12,17 @@ class Order extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'price',
+        'user_id',
         'created_at',
         'updated_at'
     ];
 
-    public function Ticket(){
-       return $this->hasMany(Ticket::class,'order_cinema_id');
+    public function Ticket()
+    {
+        return $this->hasMany(Ticket::class, 'order_cinema_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

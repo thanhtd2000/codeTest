@@ -18,7 +18,7 @@
         <div class="left-content">
             <h2 class="title">洗呢🐎</h2>
             <ul class="navigation">
-                <li><a class="active" href="{{route('client.home')}}">Home</a></li>
+                <li><a class="active" href="{{ route('client.home') }}">Home</a></li>
 
             </ul>
         </div>
@@ -31,6 +31,9 @@
                 @if (Auth::user()->role == 0)
                     <a class="text-white m-2 " href="{{ route('admin.index') }}">Quản trị</a>
                 @endif
+                <div class="text-white m-2">
+                    <a href="{{ route('history') }}">Lịch sử mua vé</a>
+                </div>
                 <div class="text-white">
                     <a href="{{ route('logout') }}"> Đăng xuất</a>
                 </div>

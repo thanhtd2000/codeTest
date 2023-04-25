@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Ticket;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,7 @@ class HomeController extends Controller
     {
         $price = 10000;
         $order['price'] = $price  * count($request->seat_name);
+        $order['user_id'] = $request->user_id;
         $order1 = Order::create($order);
         foreach ($request->seat_name as $seat) {
             $ticket['seat_name'] = $seat;
@@ -37,6 +39,13 @@ class HomeController extends Controller
             $ticket['order_cinema_id'] =  $order1->id;
             Ticket::create($ticket);
         }
-        return redirect()->back()->with('message', 'Order thành công');
+        return redirect()->route('history')->with('message', 'Order thành công');
+    }
+
+    public function history()
+    {
+        $orders = Order::where('user_id', Auth::id())->get();
+        $tickets = Ticket::all();
+        return view('client.history', compact('orders', 'tickets'));
     }
 }

@@ -22,6 +22,7 @@ use App\Http\Controllers\UserController;
 Route::get("/", [HomeController::class, 'index'])->name('client.home');
 Route::get("/buy-ticket/{id}", [HomeController::class, 'schedule'])->name('buyticket');
 Route::post("/complete-order", [HomeController::class, 'order'])->name('order');
+Route::get("/history-order", [HomeController::class, 'history'])->name('history');
 
 // login routes
 Route::get("/login", [AuthController::class, 'getLogin'])->name('login');

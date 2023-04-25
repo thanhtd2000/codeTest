@@ -41,11 +41,13 @@ class ScheduleController extends Controller
             'required' => 'Trường bắt buộc phải nhập',
         ];
         $schedule = $request->validate($rule, $message);
-        if (Schedule::where('date', '>=', $schedule['date'])->where('room_id', $schedule['room_id'])->get()) {
-            return redirect()->route('schedule.show')->with('message', 'Đã thêm mới không thành công do lịch đã tồn tại');
-        } else {
+        $check =  Schedule::where('date', $schedule['date'])->where('room_id', $schedule['room_id'])->get();
+       
+        if (count($check) == 0) {
             Schedule::create($schedule);
             return redirect()->route('schedule.show')->with('message', 'Đã thêm mới thành công');
+        } else {
+            return redirect()->route('schedule.show')->with('message', 'Thêm mới không thành công do lịch đã tồn tại');
         }
     }
 
@@ -87,5 +89,4 @@ class ScheduleController extends Controller
         $Schedule->delete();
         return redirect()->back()->with('message', 'Xoá thành công');
     }
-    
 }
